@@ -48,7 +48,7 @@ namespace Views
             Console.WriteLine($"Name: {GPU_To_Display.Name}");
             Console.WriteLine($"Memory: {GPU_To_Display.MemoryGB} GB");
             Console.WriteLine($"Clock Speed: {GPU_To_Display.ClockSpeedHZ} Hz");
-            Console.WriteLine($"Cores/Processors: {GPU_To_Display.Cores}");
+            Console.WriteLine($"Cores/Processors: {GPU_To_Display.Cores}\n");
         }
         private void Edit()
         {
@@ -61,17 +61,6 @@ namespace Views
         private void ConfirmRemoval()
         {
 
-        }
-        public void PromptForNextMenu(MenuPage currentMenu)
-        {
-            // Pivot on current menu, show user a predefined prompt and convert their input into 
-            //     a new menu choice.
-            switch (currentMenu)
-            {
-                case MenuPage.MainMenu:
-                    SetMenu(UserInput.GetIntFromUser(UserPrompts.MainMenu, false, false, 0, 6));
-                    break;
-            }
         }
     }
 }
