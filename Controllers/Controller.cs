@@ -164,7 +164,7 @@ namespace Controllers
 
         private void Remove()
         {
-            UserInput.DisplayToUser(UserPrompts.MenuGreeting_Search, false, false);
+            UserInput.DisplayToUser(UserPrompts.MenuGreeting_Delete, false, false);
             string inputString = UserInput.GetStringFromUser("ID: ", 1, 4, false, true, true).ToLower();
             GPU selectedGPU = GPU_Repo.GetGPUFromUserInput(inputString);
 
@@ -180,7 +180,23 @@ namespace Controllers
                 return;
             }
 
-            // GPU is populated, clear it
+            // GPU is populated, display it
+            GPU_View.Display(selectedGPU);
+            UserInput.DisplayToUser(UserPrompts.IDMatchSuccess);
+
+            // Give the user a confirmation dialogue
+            UserInput.DisplayToUser(UserPrompts.GPUConfirmDelete);
+            inputString = UserInput.GetStringFromUser("Delete?: ", 1, 3, false, true, true, true, true, true, true);
+
+            // If they did not confirm, recursively run this method again
+            if (inputString != "y" && inputString != "yes")
+            {
+                UserInput.DisplayToUser("", false, true); // Used only to clear log
+                Remove();
+                return;
+            }
+
+            // Delete GPU
             GPU_Repo.Delete(selectedGPU);
 
             // Inform user of success, return to menu
