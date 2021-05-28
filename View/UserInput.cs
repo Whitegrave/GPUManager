@@ -8,7 +8,7 @@ namespace Views
 {
     public static class UserInput
     {
-        public static int GetIntFromUser(string prompt, bool allowZero = true, bool allowNegative = true, int maxNegative = -100, int maxPositive = 100)
+        public static int GetIntFromUser(string prompt, bool allowZero = true, bool allowNegative = true, int maxNegative = -100, int maxPositive = 100, bool ClearLog = false)
         {
             string userInput;
             int result;
@@ -23,6 +23,9 @@ namespace Views
                 if (!bParsed || !allowZero && result == 0 || !allowNegative && result < 0 || result < maxNegative || result > maxPositive)
                 {
                     Console.WriteLine("\nThat is not a valid input.");
+                    if (ClearLog)
+                        Console.Clear();
+
                     continue;
                 }
                 // User input passed all specified criteria
@@ -31,7 +34,7 @@ namespace Views
             return result;
         }
 
-        public static string GetStringFromUser(string prompt, int minLength = 1, int maxLength = 100, bool allowLettersOnly = true, bool allowSpaces = false, bool allowNumbers = false, bool allowExoticCharacters = false, bool allowEmptyString = false, bool allowOverrideAllowAny = false)
+        public static string GetStringFromUser(string prompt, int minLength = 1, int maxLength = 100, bool allowLettersOnly = true, bool allowSpaces = false, bool allowNumbers = false, bool allowExoticCharacters = false, bool allowEmptyString = false, bool allowOverrideAllowAny = false, bool ClearLog = false)
         {
             string userInput;
             bool inputValid = false;
@@ -48,6 +51,9 @@ namespace Views
                 if (userInput.Length > maxLength || userInput.Length < minLength)
                 {
                     Console.WriteLine("\nThat is not a valid input.");
+                    if (ClearLog)
+                        Console.Clear();
+
                     continue;
                 }
 
@@ -74,6 +80,16 @@ namespace Views
                 inputValid = true;
             } while (!inputValid);
             return userInput;
+        }
+        
+        public static void DisplayToUser(string prompt, bool WaitForKey = false, bool ClearLog = false)
+        {
+            Console.WriteLine(prompt);
+            if (WaitForKey)
+                Console.ReadKey();
+
+            if (ClearLog)
+                Console.Clear();
         }
     }
 }

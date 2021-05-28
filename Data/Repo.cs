@@ -9,7 +9,7 @@ namespace Data
 {
     public class Repo
     {
-        public GPU[] GPU_Data;
+        private GPU[] GPU_Data;
         // Constructor to populate basic data on init
         public Repo()
         {
@@ -50,49 +50,60 @@ namespace Data
 
         }
 
-        public bool GetIsIndexValid(Repo GPU_Repo, int index)
+        public void Create(int gpuID, string gpuBrand, string gpuName, int gpuMemory, int gpuClock, int gpuCores)
         {
-            if (index < 0 || index > GPU_Repo.GPU_Data.Length - 1)
-                return false;
-
-            if (GPU_Repo.GPU_Data[index].Brand == null)
-                return false;
-
-            return true;
-        }
-        public void Create(Repo GPU_Repo, int gpuID, string gpuBrand, string gpuName, int gpuMemory, int gpuClock, int gpuCores)
-        {
-            GPU_Repo.GPU_Data[gpuID].Repo_ID = gpuID;
-            GPU_Repo.GPU_Data[gpuID].Brand = gpuBrand;
-            GPU_Repo.GPU_Data[gpuID].Name = gpuName;
-            GPU_Repo.GPU_Data[gpuID].MemoryGB = gpuMemory;
-            GPU_Repo.GPU_Data[gpuID].ClockSpeedHZ = gpuClock;
-            GPU_Repo.GPU_Data[gpuID].Cores = gpuCores;
+            this.GPU_Data[gpuID].Repo_ID = gpuID;
+            this.GPU_Data[gpuID].Brand = gpuBrand;
+            this.GPU_Data[gpuID].Name = gpuName;
+            this.GPU_Data[gpuID].MemoryGB = gpuMemory;
+            this.GPU_Data[gpuID].ClockSpeedHZ = gpuClock;
+            this.GPU_Data[gpuID].Cores = gpuCores;
         }
 
-        private void ReadAll()
+        public GPU ReadID(int GPU_ID)
         {
+            if (GPU_ID < 0 || GPU_ID > this.GPU_Data.Length - 1)
+                return null;
 
+            if (this.GPU_Data[GPU_ID].Brand == null)
+                return null;
+
+            return this.GPU_Data[GPU_ID];
         }
 
-        public GPU ReadID(Repo GPU_Repo, int GPU_ID)
+        public void Update(GPU selectedGPU, string gpuBrand, string gpuName, int gpuMemory, int gpuClock, int gpuCores)
         {
-            if (GetIsIndexValid(GPU_Repo, GPU_ID))
-            {
-                return GPU_Repo.GPU_Data[GPU_ID];
-            }
+            selectedGPU.Brand = gpuBrand;
+            selectedGPU.Name = gpuName;
+            selectedGPU.MemoryGB = gpuMemory;
+            selectedGPU.ClockSpeedHZ = gpuClock;
+            selectedGPU.Cores = gpuCores;
+        }
 
+        public void Delete(GPU selectedGPU)
+        {
+            selectedGPU.Brand = null;
+            selectedGPU.Name = null;
+            selectedGPU.MemoryGB = 0;
+            selectedGPU.ClockSpeedHZ = 0;
+            selectedGPU.Cores = 0;
+        }
+
+        public GPU GetGPUFromUserInput(string userInput)
+        {
+            int castedString = -1;      // Input to be converted to Int
+
+            // If valid conversion to int, return a GPU if it exists in index
+            if (Int32.TryParse(userInput, out castedString))
+                return this.ReadID(castedString);
+
+            // Failed to convert
             return null;
         }
 
-        private void Update()
+        public int GetLength()
         {
-
-        }
-
-        private void Delete()
-        {
-
+            return this.GPU_Data.Length;
         }
     }
 }

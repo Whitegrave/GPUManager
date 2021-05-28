@@ -36,10 +36,7 @@ namespace Views
             // Assign this object's menu to a specified Enum
             currentMenu = menuChoice;
         }
-        private void MakeNew()
-        {
 
-        }
         public void Display(GPU GPU_To_Display)
         {
             // Display all fields of a given GPU object
@@ -49,18 +46,6 @@ namespace Views
             Console.WriteLine($"Memory: {GPU_To_Display.MemoryGB} GB");
             Console.WriteLine($"Clock Speed: {GPU_To_Display.ClockSpeedHZ} Hz");
             Console.WriteLine($"Cores/Processors: {GPU_To_Display.Cores}\n");
-        }
-        private void Edit()
-        {
-
-        }
-        private void Search()
-        {
-
-        }
-        private void ConfirmRemoval()
-        {
-
         }
     }
 }
