@@ -30,6 +30,7 @@ namespace Views
             else
                 currentMenu = MenuPage.ExitApp;
         }
+
         // Overloaded SetMenu to directly dictate menu
         public void SetMenu(MenuPage menuChoice)
         {

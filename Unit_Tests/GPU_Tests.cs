@@ -33,7 +33,23 @@ namespace Unit_Tests
         public void GPUArrayPopulated()
         {
             Repo GPU_Repo = new Repo();
-            Assert.IsTrue(GPU_Repo.GPU_Data[0].Repo_ID == 1);
+            Assert.IsTrue(GPU_Repo.ReadID(0) != null);
+        }
+
+        [Test]
+        public void CanUpdateGPUElements()
+        {
+            Repo GPU_Repo = new Repo();
+            GPU_Repo.Update(GPU_Repo.GetGPUFromUserInput("0"), "test_brand", "test_name", 4, 4, 4);
+            Assert.IsTrue(GPU_Repo.GetGPUFromUserInput("0").Brand == "test_brand");
+        }
+
+        [Test]
+        public void CanDeleteGPU()
+        {
+            Repo GPU_Repo = new Repo();
+            GPU_Repo.Delete(GPU_Repo.GetGPUFromUserInput("0"));
+            Assert.IsTrue(GPU_Repo.ReadID(0) == null);
         }
     }
 }
